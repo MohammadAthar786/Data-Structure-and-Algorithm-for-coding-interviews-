@@ -1,6 +1,6 @@
 # DSA Interview Prep
 
-This repository is organized for pattern-based DSA revision. Original sheets and combined notes are preserved in backup/archive folders, while interview-ready notes live under `patterns/`.
+Coding Interview problems organized systematically by patterns and sub-patterns and their solution , this repo is not final , working to add more solutions 
 
 ## Folder structure
 
