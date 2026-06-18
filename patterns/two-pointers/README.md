@@ -1,7 +1,5 @@
 # Two Pointers
 
-Source sheet: [two-pointers-sheet.md](../../sheets/two-pointers-sheet.md)
-
 | Sub-pattern | Problem Count | Folder |
 | --- | ---: | --- |
 | Opposite End Pointers | 6 | [opposite-end-pointers](opposite-end-pointers/) |

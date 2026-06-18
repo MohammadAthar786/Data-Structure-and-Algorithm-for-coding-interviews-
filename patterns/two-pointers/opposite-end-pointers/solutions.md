@@ -201,9 +201,228 @@ vector<int> twoSum(vector<int>& nums, int target) {
 
 Note: LeetCode **1. Two Sum** original array is not sorted, so hash map is usually used. Two-pointer version applies when array is sorted, like **167. Two Sum II - Input Array Is Sorted**.
 
-It looks like you forgot to paste a specific problem, but your note at the very end says: **"Start with 3 Sum Closest"** (LeetCode 16). Let's dive right into that one!
+# LC 15. 3Sum
 
-As your interview coach, I love that you are focusing on the _intuition_ rather than just memorizing code. Let's break down **3Sum Closest** using the exact structured framework you requested, step-by-step, before we look at any code.
+![3Sum intuition](3Sum .png)
+
+**Pattern:** Two Pointers -> Opposite-End Pointers
+
+Core idea:
+
+```text
+Sort the array.
+Fix one number.
+Use two pointers to find the remaining pair.
+Skip duplicates so each triplet appears once.
+```
+
+---
+
+## 1. Core Pattern Recognition
+
+Problem:
+
+```text
+Find all unique triplets:
+nums[i] + nums[left] + nums[right] == 0
+```
+
+Clues:
+
+```text
+triplets
+unique combinations
+sum equals target
+array order does not matter
+```
+
+Think:
+
+```text
+Sort
+Fix one element
+Run Two Sum on the remaining suffix
+```
+
+---
+
+## 2. Naive Starting Point
+
+Brute force:
+
+```text
+Try every i, j, k triplet.
+Store valid triplets in a set to remove duplicates.
+```
+
+Problem:
+
+```text
+Time: O(N^3)
+```
+
+It does not use sorted order and repeatedly checks combinations that can be skipped.
+
+---
+
+## 3. Intuition Shift
+
+After sorting, fixing `nums[i]` turns the problem into:
+
+```text
+Find two numbers in nums[i+1 ... n-1]
+whose sum is -nums[i]
+```
+
+Example:
+
+```text
+nums = [-1, 0, 1, 2, -1, -4]
+sorted = [-4, -1, -1, 0, 1, 2]
+```
+
+Fix:
+
+```text
+i = 1 -> nums[i] = -1
+target pair sum = 1
+left = 2 -> -1
+right = 5 -> 2
+sum = -1 + 2 = 1
+```
+
+Triplet found:
+
+```text
+[-1, -1, 2]
+```
+
+Aha moment:
+
+```text
+Sorted order tells us whether to move left or right,
+and duplicate skipping keeps the answer unique.
+```
+
+---
+
+## 4. Conceptual Algorithm
+
+```text
+sort nums
+
+for i from 0 to n-3:
+    if nums[i] is same as previous:
+        skip it
+
+    left = i + 1
+    right = n - 1
+
+    while left < right:
+        sum = nums[i] + nums[left] + nums[right]
+
+        if sum == 0:
+            store triplet
+            left++
+            right--
+            skip duplicate left values
+            skip duplicate right values
+
+        else if sum < 0:
+            left++
+
+        else:
+            right--
+```
+
+Pointer logic:
+
+```text
+sum too small -> need bigger value -> left++
+sum too large -> need smaller value -> right--
+```
+
+---
+
+## 5. Edge Cases & Complexity
+
+Edge cases:
+
+```text
+less than 3 numbers
+all zeros
+duplicate values
+no valid triplet
+negative and positive mix
+```
+
+Complexity:
+
+```text
+Time: O(N^2)
+Space: O(1), ignoring output
+```
+
+---
+
+## C++ Code - Student Style
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans;
+        int n = nums.size();
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            int left = i + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (sum == 0) {
+                    ans.push_back({nums[i], nums[left], nums[right]});
+
+                    left++;
+                    right--;
+
+                    while (left < right && nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+
+                    while (left < right && nums[right] == nums[right + 1]) {
+                        right--;
+                    }
+                }
+                else if (sum < 0) {
+                    left++;
+                }
+                else {
+                    right--;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
+```
+
+Interview recall line:
+
+```text
+3Sum = sort + fix one number + two-pointer 2Sum + skip duplicates.
+```
 
 ---
 

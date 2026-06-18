@@ -1,7 +1,5 @@
 # Sliding Window
 
-Source sheet: [sliding-window-sheet.md](../../sheets/sliding-window-sheet.md)
-
 | Sub-pattern | Problem Count | Folder |
 | --- | ---: | --- |
 | Fixed-Size Scalar Windows | 1 | [fixed-size-scalar-windows](fixed-size-scalar-windows/) |

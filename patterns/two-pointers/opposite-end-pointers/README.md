@@ -23,4 +23,4 @@ Common signals:
 
 ## Notes
 
-The original written solutions include Two Sum II-style two pointers, 3Sum Closest, 4Sum, Container With Most Water, and Trapping Rain Water. A standalone 3Sum solution was not found in the combined solution file.
+This folder contains the main opposite-end pointer ladder: Two Sum II-style search, 3Sum, 3Sum Closest, 4Sum, Container With Most Water, and Trapping Rain Water.
