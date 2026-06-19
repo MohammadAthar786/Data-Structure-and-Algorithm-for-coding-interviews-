@@ -14,14 +14,12 @@ Use Binary Search when:
 
 | Sub-pattern | Use when | Link |
 | --- | --- | --- |
-| Core Philosophy | You need the mental model, monotonicity, and loop rules | [core-philosophy](core-philosophy/) |
-| Decision Tree | You need to choose the right binary-search pattern | [decision-tree](decision-tree/) |
 | Classic Binary Search | Exact target search in a sorted 1D array | [classic-binary-search](classic-binary-search/) |
 | Lower / Upper Bound | First/last position, first true, last true, boundary counting | [lower-upper-bound](lower-upper-bound/) |
 | Search in Rotated Array | Sorted array has been rotated, with or without duplicates | [search-in-rotated-array](search-in-rotated-array/) |
 | Binary Search on Answer | Minimum feasible or maximum feasible answer search | [binary-search-on-answer](binary-search-on-answer/) |
 | Peak / Valley Search | Slope, peak, mountain, or local optimum logic | [peak-valley-search](peak-valley-search/) |
-| Unsorted | Preserved notes whose original category is outside this target tree | [unsorted](unsorted/solutions.md) |
+
 
 ## Revision strategy
 
