@@ -42,57 +42,10 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Follow an Uphill Edge, Not a Particular Mountain
+You do not need to know the exact peak immediately. You only need to know which side contains a peak.
 
-You do not need the highest mountain; you need any local summit. If the ground rises from `mid` to `mid+1`, following that uphill direction must eventually reach a peak before or at the boundary. If it falls, a peak exists at `mid` or somewhere left.
-
-```text
-nums = [1, 2, 1, 3, 5, 6, 4]
-index  0  1  2  3  4  5  6
-```
-
-This works because the virtual values beyond both ends are negative infinity, so an uphill walk cannot continue forever without ending at a peak.
-
-### Invariant
-
-At least one peak remains inside `[left, right]`. The slope comparison discards only a side for which the opposite direction is guaranteed to contain a peak.
-
-### Example Walkthrough
-
-```text
-left=0, right=6, mid=3
-nums[3]=3 < nums[4]=5
-           ^ uphill to the right
-```
-
-Why discard the left half? We are not claiming it has no peak. We only need one peak, and the rising edge guarantees one on the right, so retaining both sides is unnecessary.
-
-```text
-left=4, right=6, mid=5
-nums[5]=6 > nums[6]=4
-           ^ downhill to the right
-```
-
-Why keep `mid` with `right=mid`? `mid` may already be the peak. Discard only the strictly descending side.
-
-```text
-left=4, right=5, mid=4
-nums[4]=5 < nums[5]=6 -> left=5
-left==right==5, value 6
-```
-
-### Edge Case / Correction
-
-Do not search for a globally maximum value; that solves a stronger problem than required. The slope guarantee is enough for logarithmic search for any peak.
-
-### Final Recall
-
-```text
-Compare mid with mid+1.
-Rising edge: a peak is guaranteed right, move left to mid+1.
-Falling edge: mid may be peak, keep it with right=mid.
-Meeting point is a peak.
-```
+- If `nums[mid] < nums[mid + 1]`, we are climbing upward, so a peak must exist on the right.
+- If `nums[mid] > nums[mid + 1]`, we are going downward, so `mid` or the left side contains a peak.
 
 ## 5. Optimized Algorithm
 
@@ -236,54 +189,10 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Locate the One Place Where Climbing Turns Into Descending
+The peak is the point where the slope changes from rising to falling.
 
-A mountain array has one continuous climb followed by one continuous descent:
-
-```text
-arr = [0, 2, 5, 3, 1]
-             ^ peak
-       climb | descent
-```
-
-Rather than compare the peak against every value, inspect the local slope at `mid`. A rising edge means the turn has not happened yet; a falling edge means the turn is at `mid` or earlier.
-
-### Invariant
-
-The unique peak remains inside `[left, right]`. Rising discards `mid` and everything left; falling keeps `mid` because it may be the turning point.
-
-### Example Walkthrough
-
-```text
-left=0, right=4, mid=2
-arr[2]=5 > arr[3]=3 -> falling edge
-```
-
-Why search left instead of right? Once descent has begun, every later value is lower. The unique peak cannot be strictly to the right. Keep `mid` because it might be the peak.
-
-```text
-left=0, right=2, mid=1
-arr[1]=2 < arr[2]=5 -> rising edge
-```
-
-Why discard `mid`? A rising point cannot be the peak, and the unique turn must occur later.
-
-```text
-left=2, right=2 -> peak index 2
-```
-
-### Edge Case / Correction
-
-The loop uses `left < right`, ensuring `mid+1` is valid. This reasoning relies on a valid mountain array with one peak; arbitrary arrays use the broader LC 162 guarantee instead.
-
-### Final Recall
-
-```text
-Search for the slope change.
-mid < mid+1 means still climbing: go right.
-mid > mid+1 means descending: keep mid and go left.
-left == right is the unique peak.
-```
+- If `arr[mid] < arr[mid + 1]`, we are on the increasing side, so the peak is to the right.
+- Otherwise, we are at or after the peak, so keep the left side including `mid`.
 
 ## 5. Optimized Algorithm
 
@@ -420,62 +329,13 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Split the Mountain Into Two Roads With Opposite Signs
+Split the problem into three binary searches:
 
-Searching the whole mountain at once is awkward because the same target can lie on an increasing road or a decreasing road. First locate the summit; it is the signpost that turns one unsorted-looking structure into two ordinary monotonic searches.
+1. Find the peak using slope.
+2. Search the increasing left side normally.
+3. If not found, search the decreasing right side with reversed comparison.
 
-```text
-arr = [1, 3, 5, 7, 6, 4, 2], target = 4
-                  ^ peak
-      increasing  | decreasing
-```
-
-### Invariant
-
-Phase 1 keeps the peak inside its range using slope direction. Phase 2 keeps the target, if present, inside the selected monotonic half. Searching the left half first preserves the requirement to return the smallest index.
-
-### Example Walkthrough
-
-Peak search:
-
-```text
-mid=3: arr[3]=7 > arr[4]=6 -> descending begins, keep mid
-mid=1: arr[1]=3 < arr[2]=5 -> peak is right
-mid=2: arr[2]=5 < arr[3]=7 -> peak is right
-peak=3
-```
-
-Search increasing side `[0..3]` for `4`:
-
-```text
-[1, 3, 5, 7]
-mid value 3 < 4 -> right
-mid value 5 > 4 -> left -> not found
-```
-
-Why search this side first? If `4` appeared on both slopes, the increasing side would contain the smaller index.
-
-Search decreasing side `[4..6]`:
-
-```text
-[6, 4, 2]
-    ^ found at index 5
-```
-
-Why reverse comparisons here? On a descending road, a value smaller than target lies too far right, so the search must move left.
-
-### Edge Case / Correction
-
-Do not write one binary-search comparison rule for both halves. Pass an order flag or use separate helpers so increasing and decreasing movement remain explicit.
-
-### Final Recall
-
-```text
-Find peak by following the slope.
-Binary-search [0..peak] as increasing first.
-If absent, binary-search [peak+1..n-1] as decreasing.
-Reverse left/right value comparisons on the descending side.
-```
+Searching the left side first ensures the smallest index is returned.
 
 ## 5. Optimized Algorithm
 

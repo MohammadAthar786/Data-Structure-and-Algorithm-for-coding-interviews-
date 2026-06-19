@@ -82,50 +82,13 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Adjust the Side Length Until the Volume Fits
+We are not searching an array. We are searching the answer value.
 
-Imagine building a cube-like object. A candidate side length `x` produces size `x^n`. Larger side lengths can never produce a smaller result, so candidates are ordered by the size they create.
+- If `mid^n == m`, `mid` is the answer.
+- If `mid^n < m`, the root must be larger.
+- If `mid^n > m`, the root must be smaller.
 
-```text
-n = 3, m = 27
-
-side x:   1   2   3   4 ...
-x^3:      1   8  27  64 ...
-                   ^ exact boundary
-```
-
-We are not searching stored numbers. We are searching the input value to a monotonic function.
-
-### Invariant
-
-If an integer nth root exists, it remains inside `[left, right]`. A candidate with `mid^n < m` eliminates every smaller candidate; `mid^n > m` eliminates every larger candidate.
-
-### Example Walkthrough
-
-```text
-left=1, right=27, mid=14
-14^3 > 27 -> side is too large
-```
-
-Why move left rather than trying nearby values? Every `x >= 14` creates at least as much volume, so the entire right region is impossible.
-
-```text
-left=1, right=13, mid=7  -> 7^3 > 27 -> right=6
-left=1, right=6,  mid=3  -> 3^3 = 27 -> found
-```
-
-### Edge Case / Correction
-
-Compute powers with early stopping or wider arithmetic. We only need to know whether the product is below, equal to, or above `m`; allowing overflow can reverse that comparison and destroy the invariant.
-
-### Final Recall
-
-```text
-Candidate root x produces monotonic value x^n.
-x^n too small: all smaller roots are impossible, move right.
-x^n too large: all larger roots are impossible, move left.
-Equal: x is the integer root; no equality means no integer root.
-```
+Use early stopping while multiplying to avoid overflow.
 
 ## 5. Optimized Algorithm
 
@@ -330,56 +293,16 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Find the Largest Number of Full Bundles
-
-Division asks how many complete bundles of size `divisor` fit inside `dividend`. For `43 / 5`, candidate quotient `q` is valid when `5*q <= 43`.
+We can ask a yes/no question:
 
 ```text
-q:       0 1 2 3 4 5 6 7 8 | 9 10 ...
-5*q<=43: T T T T T T T T T | F  F
-                              ^ largest valid q = 8
+Is divisor * mid <= dividend?
 ```
 
-The answers form a monotonic true-then-false boundary, so we search for the last valid quotient.
+- If yes, `mid` is a possible quotient, but maybe we can go larger.
+- If no, `mid` is too large, so go smaller.
 
-### Invariant
-
-`answer` is the largest valid quotient seen so far, and any better valid quotient remains inside `[left, right]`.
-
-### Example Walkthrough
-
-```text
-dividend=43, divisor=5
-left=0, right=43, mid=21 -> 5*21 > 43
-```
-
-Why move left? If 21 bundles do not fit, no larger bundle count can fit.
-
-```text
-mid=10 -> 50 > 43 -> move left
-mid=4  -> 20 <= 43 -> valid, answer=4
-```
-
-Why move right after a valid result? Four bundles fit, but division needs the maximum full-bundle count, not merely any valid count.
-
-```text
-mid=7 -> 35 valid, answer=7
-mid=8 -> 40 valid, answer=8
-mid=9 -> 45 invalid -> stop with 8
-```
-
-### Edge Case / Correction
-
-Search absolute values, then apply the sign. Handle `INT_MIN / -1` explicitly, and avoid overflow in `divisor * mid` by using wider arithmetic or comparing through safe multiplication.
-
-### Final Recall
-
-```text
-Search quotient q.
-divisor*q <= dividend means q fits: save it and try larger.
-Product too large: try smaller.
-Return the largest fitting q, then apply the sign and overflow rule.
-```
+This is a last-true binary search.
 
 ## 5. Optimized Algorithm
 
@@ -581,60 +504,14 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Turn Speed Into a Deadline Test
+This is not searching in the pile array. It is searching the answer speed.
 
-Choosing Koko's speed directly is hard, but testing one speed is easy: calculate how many whole hours it requires. Faster speeds never require more time.
+For a speed `mid`:
 
-```text
-piles = [3, 6, 7, 11], h = 8
+- If Koko can finish within `h`, try a smaller speed.
+- If she cannot finish, speed is too slow, so go larger.
 
-speed:     1 2 3 | 4 5 6 ... 11
-finish<=8: F F F | T T T ... T
-                  ^ first feasible speed
-```
-
-So the problem is not "find a speed"; it is "find the first speed that meets the deadline."
-
-### Invariant
-
-The minimum feasible speed remains inside `[left, right]`. Speeds below a failed candidate are impossible; a feasible candidate must remain because it may be the minimum.
-
-### Example Walkthrough
-
-```text
-left=1, right=11, mid=6
-hours = ceil(3/6)+ceil(6/6)+ceil(7/6)+ceil(11/6)
-      = 1+1+2+2 = 6 <= 8
-```
-
-Why search smaller after success? Speed 6 works, but the objective is minimum speed. Returning now may overpay.
-
-```text
-right=6, mid=3
-hours = 1+2+3+4 = 10 > 8
-```
-
-Why discard speed 3 and below? Slower eating cannot reduce the required hours.
-
-```text
-left=4, right=6, mid=5 -> hours=8, keep 5
-left=4, right=5, mid=4 -> hours=8, keep 4
-left==right==4
-```
-
-### Edge Case / Correction
-
-Use ceiling division `(pile + speed - 1) / speed`, not ordinary truncating division. Stop accumulating once hours exceed `h` to avoid unnecessary work or overflow.
-
-### Final Recall
-
-```text
-Search speeds 1 through max pile.
-Compute total ceiling-hours at mid.
-Too many hours: mid and slower speeds fail, move right.
-Within deadline: mid works, keep it and try slower.
-First feasible speed is the answer.
-```
+This is a minimum-feasible binary search.
 
 ## 5. Optimized Algorithm
 
@@ -829,58 +706,12 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Choose the Smallest Truck That Meets the Schedule
+This is not about searching the package array. It is about searching the answer capacity.
 
-For a fixed ship capacity, loading order is forced: keep adding packages until the next one would overflow, then start a new day. A larger ship can never require more days.
+- If capacity `mid` ships within `days`, try smaller capacity.
+- If capacity `mid` needs too many days, capacity is too small, so go larger.
 
-```text
-weights = [3, 2, 2, 4, 1, 4], days = 3
-
-capacity: 4 5 | 6 7 8 ... 16
-days<=3:  F F | T T T ... T
-               ^ smallest feasible capacity
-```
-
-### Invariant
-
-The minimum feasible capacity remains in `[left, right]`. Lower bound is the heaviest package; upper bound is the sum, which ships everything in one day.
-
-### Example Walkthrough
-
-```text
-left=4, right=16, mid=10
-days: [3,2,2] [4,1,4] -> 2 days
-```
-
-Why search smaller? Capacity 10 proves feasibility, not minimality.
-
-```text
-right=10, mid=7
-days: [3,2,2] [4,1] [4] -> 3 days -> feasible, keep 7
-
-left=4, right=7, mid=5
-days: [3,2] [2] [4,1] [4] -> 4 days -> too small
-```
-
-Why discard every capacity `<=5`? Reducing capacity cannot merge shipping days; it can only preserve or increase their count.
-
-```text
-left=6, right=7, mid=6
-days: [3,2] [2,4] [1,4] -> 3 days -> answer 6
-```
-
-### Edge Case / Correction
-
-Do not reorder packages while testing capacity. The monotonic predicate must simulate the required original order. Start the search at `max(weights)`, not zero, because every package must fit alone.
-
-### Final Recall
-
-```text
-Search capacity from heaviest package to total weight.
-Greedily pack in order and count days.
-Too many days: capacity is too small, move right.
-Within D days: capacity works, keep it and try smaller.
-```
+This is a minimum-feasible binary search.
 
 ## 5. Optimized Algorithm
 
@@ -1081,54 +912,16 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Move a Calendar Date, Then Inspect Consecutive Runs
-
-On any chosen day, each flower is simply bloomed or not bloomed. Moving to a later day can only turn more flowers on; it never turns one off.
+Ask:
 
 ```text
-bloomDay = [1, 10, 3, 10, 2], m = 1, k = 3
+Can I make m bouquets by day mid?
 ```
 
-At day 5:
+- If yes, try an earlier day.
+- If no, need more flowers to bloom, so try a later day.
 
-```text
-state: [B, ., B, ., B]
-```
-
-Three flowers have bloomed, but they are not adjacent. This is why counting bloomed flowers globally is the wrong predicate; we must count complete consecutive groups of size `k`.
-
-### Invariant
-
-The minimum feasible day remains inside `[left, right]`. If day `d` cannot form `m` bouquets, no earlier day can; if it can, day `d` remains a candidate while we search earlier.
-
-### Example Walkthrough
-
-```text
-left=1, right=10, mid=5
-[B, ., B, ., B] -> no run of 3 -> infeasible
-```
-
-Why move later? Earlier days can only have a subset of these bloomed flowers, so they cannot repair the broken runs.
-
-```text
-left=6, right=10, mid=8 -> same broken pattern -> infeasible
-left=9, right=10, mid=9 -> still infeasible
-left=10, right=10
-[B, B, B, B, B] -> at least one run of 3 -> feasible
-```
-
-### Edge Case / Correction
-
-First check whether `m*k > n`; then no day can work. Reset the consecutive counter whenever an unbloomed flower appears, and consume/reset after forming each bouquet so flowers are not reused.
-
-### Final Recall
-
-```text
-Search calendar days from minimum bloom day to maximum.
-At mid, scan left to right and count consecutive bloomed runs of size k.
-Too few bouquets: all earlier days fail, move later.
-Enough bouquets: keep mid and search earlier.
-```
+This is a first-true search over days.
 
 ## 5. Optimized Algorithm
 
@@ -1337,55 +1130,16 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Test a Safety Radius, Then Stretch It
-
-Suppose cows need a minimum personal distance `d`. For a fixed `d`, the least wasteful placement is to put the first cow at the first stall and every next cow in the earliest stall at least `d` away.
+Ask:
 
 ```text
-stalls = [1, 2, 4, 8, 9], cows = 3
+Can I place all balls with at least mid distance apart?
 ```
 
-Choosing an earlier feasible stall leaves every later stall available; choosing a later one cannot make future placement easier. That is the greedy proof inside the binary-search predicate.
+- If yes, try a larger distance.
+- If no, distance is too ambitious, so try smaller.
 
-### Invariant
-
-`answer` is the largest feasible minimum distance seen. Any larger feasible distance remains in `[left, right]`. Feasibility is true-then-false as distance grows.
-
-### Example Walkthrough
-
-```text
-try d=4
-place at 1 -> next earliest is 8 -> no room for third cow
-infeasible
-```
-
-Why move smaller? If distance 4 cannot fit all cows, any larger required separation is at least as restrictive.
-
-```text
-try d=2
-place at 1 -> 4 -> 8, all 3 fit
-```
-
-Why try larger after success? We are maximizing the minimum distance, so any feasible value is only a lower bound.
-
-```text
-try d=3
-place at 1 -> 4 -> 8, feasible
-try d=4 already failed -> maximum is 3
-```
-
-### Edge Case / Correction
-
-Sort stalls first. In the feasibility check, always place the next cow at the earliest valid stall; delaying it cannot create additional room for remaining cows.
-
-### Final Recall
-
-```text
-Sort stalls and search a candidate minimum distance.
-Greedily place each cow at the earliest stall far enough from the previous cow.
-All cows fit: save distance and try larger.
-They do not fit: distance is too demanding, try smaller.
-```
+This is a max-feasible binary search.
 
 ## 5. Optimized Algorithm
 
@@ -1591,58 +1345,16 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Treat the Largest Allowed Load as a Budget
-
-Instead of guessing where to cut, choose a budget `x`: no subarray may have sum above `x`. For that fixed budget, greedily keep extending the current part; cut only when the next number would exceed the budget.
+Ask:
 
 ```text
-nums = [7, 2, 5, 10, 8], k = 2
+Can I split the array into at most k parts if no part sum exceeds mid?
 ```
 
-Why delay each cut? An earlier cut cannot reduce the number of parts needed later; filling the current part as much as possible gives the minimum parts for this budget.
+- If yes, `mid` is a possible largest sum, so try smaller.
+- If no, `mid` is too small, so increase it.
 
-### Invariant
-
-The minimum feasible largest sum remains inside `[left, right]`. `parts(mid) <= k` means the budget can realize at most `k` parts and may be reduced; more than `k` parts means every smaller budget also fails.
-
-### Example Walkthrough
-
-Search from `max(nums)=10` to `sum(nums)=32`.
-
-```text
-mid=21
-[7,2,5] [10,8] -> 2 parts -> feasible
-```
-
-Why search smaller? Budget 21 works, but we want the tightest possible maximum.
-
-```text
-mid=15
-[7,2,5] [10] [8] -> 3 parts -> infeasible
-```
-
-Why move larger? A smaller budget can only create the same number or more parts.
-
-```text
-mid=18
-[7,2,5] [10,8] -> 2 parts -> feasible
-mid=17
-[7,2,5] [10] [8] -> 3 parts -> infeasible
-answer=18
-```
-
-### Edge Case / Correction
-
-The greedy check usually asks for `parts <= k`, not exactly `k`. With non-negative numbers, any part can be split further until exactly `k` parts exist without increasing the maximum sum.
-
-### Final Recall
-
-```text
-Search the allowed maximum subarray sum.
-For mid, greedily make each part as full as possible and count parts.
-More than k parts: budget too small, move right.
-At most k parts: budget works, keep it and try smaller.
-```
+This is a minimum-feasible binary search.
 
 ## 5. Optimized Algorithm
 
@@ -1842,63 +1554,12 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Raise the Saw Until You Barely Collect Enough Wood
+Higher saw height means less wood.
 
-A lower saw cuts more wood; a higher saw preserves more tree but collects less. We want the highest saw that still meets the wood requirement.
+- If `mid` gives enough wood, try a higher saw height to waste less tree.
+- If `mid` does not give enough wood, lower the saw.
 
-```text
-heights = [20, 15, 10, 17], required = 7
-```
-
-For saw height `h`, each tree contributes `max(0, tree-h)`:
-
-```text
-h increases: wood collected never increases
-feasible:     true true ... true | false false
-                              ^ highest feasible h
-```
-
-### Invariant
-
-`answer` is the highest feasible saw height seen, and any better feasible height remains in `[left, right]`.
-
-### Example Walkthrough
-
-```text
-try h=10
-wood = 10+5+0+7 = 22 >= 7
-```
-
-Why raise the saw after success? Height 10 collects enough, but cuts more wood than necessary; maximizing height minimizes unnecessary cutting.
-
-```text
-try h=15
-wood = 5+0+0+2 = 7 -> feasible, save 15 and try higher
-
-try h=18
-wood = 2 -> infeasible
-```
-
-Why move lower after failure? Raising the saw further can only reduce wood.
-
-```text
-try h=16 -> wood=4+0+0+1=5, infeasible
-answer=15
-```
-
-### Edge Case / Correction
-
-This is a last-true search, unlike minimum-capacity problems that find first true. Use a wide type for accumulated wood and stop once the requirement is reached.
-
-### Final Recall
-
-```text
-Search saw height from 0 to tallest tree.
-At mid, sum wood above the saw.
-Enough wood: save mid and raise the saw.
-Too little wood: lower the saw.
-Return the highest feasible height.
-```
+This is a maximum-feasible binary search.
 
 ## 5. Optimized Algorithm
 
@@ -2093,66 +1754,16 @@ Real-world meaning:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Freeze Time and Ask How Much the Kitchen Can Produce
-
-Do not decide which cook makes which paratha. Choose a time limit `T` and let every cook produce as many as possible within it.
-
-A cook of rank `R` takes progressively longer:
+Ask:
 
 ```text
-1st: R, 2nd: 2R, 3rd: 3R, ...
-time for x parathas = R * x(x+1)/2
+Can all cooks together make at least P pratas within mid time?
 ```
 
-Use:
+- If yes, try less time.
+- If no, need more time.
 
-```text
-ranks = [1, 2, 3, 4], required parathas = 10
-```
-
-More time can never reduce production, so feasibility changes once from false to true.
-
-### Invariant
-
-The minimum feasible completion time remains in `[left, right]`. If time `T` produces fewer than required, every smaller time fails; if it produces enough, keep `T` while searching earlier.
-
-### Example Walkthrough
-
-```text
-T=10
-rank 1 -> 4, rank 2 -> 2, rank 3 -> 2, rank 4 -> 1
-total = 9 -> infeasible
-```
-
-Why move to larger time? Every cook's production is monotonic in time; less time cannot create the missing paratha.
-
-```text
-T=15
-rank 1 -> 5, rank 2 -> 3, rank 3 -> 2, rank 4 -> 2
-total = 12 -> feasible
-```
-
-Why search earlier? Fifteen is sufficient, but the kitchen may finish sooner.
-
-```text
-T=12 -> 4+3+2+2 = 11, feasible
-T=11 -> 4+2+2+1 = 9, infeasible
-minimum time = 12
-```
-
-### Edge Case / Correction
-
-Inside the predicate, compute each cook's output safely, either by incremental time addition or a bounded quadratic calculation. Stop as soon as total production reaches the requirement.
-
-### Final Recall
-
-```text
-Search total time.
-For mid time, sum how many parathas every cook can finish.
-Too few: all smaller times fail, move right.
-Enough: keep mid and search earlier.
-First feasible time is the answer.
-```
+This is a minimum-feasible time search.
 
 ## 5. Optimized Algorithm
 

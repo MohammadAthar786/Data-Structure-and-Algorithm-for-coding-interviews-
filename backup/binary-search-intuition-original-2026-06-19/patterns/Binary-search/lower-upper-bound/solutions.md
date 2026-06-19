@@ -192,54 +192,12 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Find the Two Doors Around One Block
+Instead of searching for any target occurrence, search for the target's boundaries.
 
-Duplicates in a sorted array form one continuous block. Instead of searching for the value twice in the ordinary sense, search for the two doors surrounding that block: the first place where values become `target`, and the last place where they are still `target`.
+- First position = first index where `nums[i] >= target`.
+- Last position = first index where `nums[i] > target`, then subtract `1`.
 
-```text
-nums = [5, 7, 7, 8, 8, 10], target = 8
-                    block: [8, 8]
-                            ^  ^
-                         first last
-```
-
-Finding any `8` is not enough because equality does not tell us whether another `8` exists farther left or right.
-
-### Invariant
-
-During first-position search, `answer` is the best leftmost `8` seen, while the search range contains any possible earlier `8`. During last-position search, it symmetrically contains any possible later `8`.
-
-### Example Walkthrough
-
-First position:
-
-```text
-left=0, right=5, mid=2 -> nums[2]=7
-                         ^ too small, first 8 must be right
-
-left=3, right=5, mid=4 -> nums[4]=8
-                                ^ candidate, but index 3 may be earlier
-answer=4, right=3
-
-mid=3 -> nums[3]=8 -> answer=3, search left -> stop
-```
-
-Why move left after equality? Equality proves `mid` is valid, not minimal.
-
-Last position repeats the logic but moves right after equality, eventually keeping index `4`.
-
-### Edge Case / Correction
-
-Do not stop on equality. Save the candidate first, then continue toward the boundary you are optimizing. If no candidate was ever saved, return `[-1, -1]`.
-
-### Final Recall
-
-```text
-First occurrence: on equality save mid, then search left.
-Last occurrence: on equality save mid, then search right.
-Values smaller/larger than target still move normally.
-Return the two saved boundaries.
-```
+This turns the problem into two clean lower-bound searches.
 
 ## 5. Optimized Algorithm
 

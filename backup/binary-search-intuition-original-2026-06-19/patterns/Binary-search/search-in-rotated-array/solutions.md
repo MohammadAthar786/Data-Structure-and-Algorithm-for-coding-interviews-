@@ -41,56 +41,12 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: A Sorted Road Cut and Rejoined
+Even after rotation, one side around `mid` is always sorted:
 
-Imagine one increasing road cut at one point and its two pieces swapped:
+- If `nums[left] <= nums[mid]`, the left half is sorted.
+- Otherwise, the right half is sorted.
 
-```text
-original: [0, 1, 2, 4, 5, 6, 7]
-rotated:  [4, 5, 6, 7, 0, 1, 2], target = 0
-```
-
-The whole road is no longer sorted, but a cut can damage only one of the two halves around `mid`. Therefore at least one half is still normally sorted. That sorted half gives a trustworthy value range.
-
-### Invariant
-
-If the target exists, it remains inside `[left, right]`. Each iteration identifies a sorted half and discards it only when the target cannot lie inside that half's closed value range.
-
-### Example Walkthrough
-
-```text
-left=0, right=6, mid=3
-[4, 5, 6, 7 | 0, 1, 2]
-          ^ mid=7
-```
-
-`nums[left] <= nums[mid]`, so `[4,5,6,7]` is sorted. Target `0` is not between `4` and `7`. Why discard this half instead of inspecting the unsorted half? The sorted half gives proof of absence; the rotated half is the only remaining possibility.
-
-```text
-left=4, right=6, mid=5 -> nums[5]=1
-[0, 1, 2]
-    ^
-```
-
-This left half `[0,1]` is sorted and contains `0`, so keep it:
-
-```text
-right=4 -> mid=4 -> nums[4]=0 found
-```
-
-### Edge Case / Correction
-
-Use inclusive comparisons carefully. When deciding whether the target belongs to the sorted left half, use `nums[left] <= target && target < nums[mid]`; `mid` was already checked, so it should not remain.
-
-### Final Recall
-
-```text
-At least one half around mid is sorted.
-Identify that half.
-If target lies inside its value range, keep it.
-Otherwise discard it and search the rotated half.
-Repeat while preserving target inside the search interval.
-```
+Once we know the sorted half, we check whether the target lies inside its value range. If not, discard that half.
 
 ## 5. Optimized Algorithm
 
@@ -252,56 +208,12 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Compare With the Final Slope Marker
+Compare `nums[mid]` with `nums[right]`.
 
-In a rotated increasing array, values belong to a high segment before the cut and a low segment after it:
+- If `nums[mid] > nums[right]`, the right side contains the rotation drop, so the minimum is after `mid`.
+- If `nums[mid] <= nums[right]`, the right side is sorted, so the minimum is at `mid` or on the left side.
 
-```text
-nums = [4, 5, 6, 7, 0, 1, 2]
-        high segment | low segment
-                              right=2
-```
-
-The rightmost value belongs to the low segment. It acts as a marker: a middle value greater than it must be in the high segment, while a middle value less than or equal to it is already in the low segment containing the minimum.
-
-### Invariant
-
-The minimum remains inside `[left, right]`. `right` itself is always a valid candidate, which is why the comparison uses `nums[right]` and why the right update keeps `mid`.
-
-### Example Walkthrough
-
-```text
-left=0, right=6, mid=3
-nums[mid]=7 > nums[right]=2
-```
-
-Why move `left` to `mid+1`? `mid` and everything to its left within this increasing segment are high values; the rotation drop must occur after `mid`.
-
-```text
-left=4, right=6, mid=5
-nums[mid]=1 <= nums[right]=2
-```
-
-Why set `right=mid`, not `mid-1`? `1` could itself be the minimum, so we may discard values after it but cannot discard it.
-
-```text
-left=4, right=5, mid=4
-nums[mid]=0 <= nums[right]=1 -> right=4
-left == right == 4
-```
-
-### Edge Case / Correction
-
-Comparing with `nums[left]` is harder because `left` may move into either segment. The right endpoint remains a clean low-segment reference in the distinct-values version.
-
-### Final Recall
-
-```text
-Compare mid with right.
-mid > right: mid is on the high side, minimum is strictly right.
-mid <= right: mid is on the low side and may be minimum, keep it.
-When left meets right, that index is the rotation minimum.
-```
+This directly searches for the pivot/minimum.
 
 ## 5. Optimized Algorithm
 
@@ -443,55 +355,13 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Duplicates Can Hide Which Side Contains the Cut
-
-Without duplicates, one half around `mid` clearly reveals itself as sorted. Duplicates can make both boundaries and `mid` look identical even though the rotation cut is hidden between them.
+This is LC 33 with one extra problem: duplicates can make this comparison unclear:
 
 ```text
-nums = [1, 0, 1, 1, 1], target = 0
-        L     M     R
-        1     1     1
+nums[left] == nums[mid] == nums[right]
 ```
 
-From these three `1`s, we cannot tell whether the unusual low segment lies left or right of `mid`. Choosing either half would be a guess.
-
-### Invariant
-
-If the target exists, it remains inside `[left, right]`. When `nums[left] == nums[mid] == nums[right]` and `mid` is not the target, removing equal boundary copies cannot remove the only target.
-
-### Example Walkthrough
-
-```text
-left=0, mid=2, right=4
-values 1, 1, 1 -> orientation is hidden
-```
-
-Why shrink both ends instead of using normal sorted-half logic? Neither half has a strictly informative boundary. Since boundary value `1` was checked against target `0`, those two copies are safe to discard.
-
-```text
-left=1, right=3, mid=2
-nums = [0, 1, 1] within the range
-        L  M  R
-```
-
-The right half `[1,1]` is sorted and does not contain `0`, so search left:
-
-```text
-right=1 -> mid=1 -> nums[1]=0 found
-```
-
-### Edge Case / Correction
-
-Duplicate shrinking can happen many times, so worst-case complexity becomes `O(n)`. This is not a flaw in implementation; duplicates genuinely remove the information needed to halve the range.
-
-### Final Recall
-
-```text
-Check mid first.
-If left, mid, and right are equal, shrink both boundaries.
-Otherwise identify a sorted half as in rotated search I.
-Keep the sorted half only when its value range contains target.
-```
+When that happens, we cannot know which half is sorted, so safely shrink both ends by one. Otherwise, use the normal sorted-half logic.
 
 ## 5. Optimized Algorithm
 
@@ -665,55 +535,11 @@ Why inefficient:
 
 ## 4. Intuition Shift / Aha Moment
 
-### Intuition: Equality Removes Information, Not the Answer
+This is LC 153 with duplicates.
 
-Use the same high-segment/low-segment picture as the distinct version:
-
-```text
-nums = [2, 2, 2, 0, 1]
-        high side | low side
-```
-
-Comparing `mid` with `right` normally tells which segment contains `mid`. But when they are equal, that comparison reveals no segment at all.
-
-### Invariant
-
-The minimum remains inside `[left, right]`. If `nums[mid] == nums[right]`, removing only `right` is safe: if that value is the minimum, an equal copy at `mid` remains; otherwise `right` was not the minimum.
-
-### Example Walkthrough
-
-```text
-left=0, right=4, mid=2
-nums[mid]=2 > nums[right]=1
-```
-
-The minimum must be strictly right of `mid`:
-
-```text
-left=3, right=4, mid=3
-nums[mid]=0 < nums[right]=1
-```
-
-Keep `mid` because it may be the minimum:
-
-```text
-right=3 -> left==right==3 -> value 0
-```
-
-To see the duplicate correction, consider an intermediate range whose `mid` and `right` are both `2`. We cannot choose a side, but `right--` removes one redundant copy without losing all copies of a possible minimum.
-
-### Edge Case / Correction
-
-Do not use `left++` and `right--` automatically for minimum search; one safe boundary removal is enough. Repeated equal values can reduce the worst case to `O(n)`.
-
-### Final Recall
-
-```text
-Compare mid with right.
-mid > right: minimum is strictly right.
-mid < right: minimum is at mid or left, keep mid.
-mid == right: right gives no information, discard one duplicate with right--.
-```
+- If `nums[mid] > nums[right]`, the minimum is to the right.
+- If `nums[mid] < nums[right]`, the minimum is at `mid` or to the left.
+- If `nums[mid] == nums[right]`, we cannot know the side, but removing `right` is safe because `nums[right]` duplicates `nums[mid]`.
 
 ## 5. Optimized Algorithm
 
