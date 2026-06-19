@@ -28,7 +28,7 @@ Use Binary Search when:
 3. Solve classic and boundary search first.
 4. Move to rotated arrays and peak/mountain search.
 5. Finish with answer-space search, because it requires proving `can(mid)` is monotonic.
-6. Review unsorted notes separately; they came from extra categories in the original Binary Search roadmap.
+
 
 ## Common mistakes
 
