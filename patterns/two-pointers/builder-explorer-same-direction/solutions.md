@@ -1,5 +1,7 @@
 # LC 26. Remove Duplicates from Sorted Array
 
+https://youtu.be/06ALbFrgIoQ?si=xKdhC-XOOY7Rqikf
+
 **Pattern:** Two Pointers → Builder & Explorer (Same Direction)
 
 ---
@@ -530,6 +532,8 @@ public:
 ---
 
 # LC 283. Move Zeroes
+
+https://youtu.be/k5lIW5XxC7g?si=1M_PXLbIi-ZHW-c_
 
 **Pattern:** Two Pointers → Builder & Explorer (Same Direction)
 
@@ -1188,6 +1192,8 @@ public:
 
 # LC 27. Remove Element
 
+https://youtu.be/aoYxNjRscNA?si=DagnesARRJoei5n9
+
 
 ## C++ Code — Student Style
 
@@ -1219,6 +1225,8 @@ I am not actually deleting elements; I am overwriting the front part with valid 
 ```
 
 # LC 443. String Compression
+
+https://youtu.be/I7drewKcN1Y?si=Ubo33rzZ4S-sx0zU
 
 ## C++ Code — Student Style
 
@@ -1268,6 +1276,8 @@ Explorer reads repeated groups, builder writes compressed groups at the front.
 ```
 
 # LC 80. Remove Duplicates from Sorted Array II
+
+https://youtu.be/ycAq8iqh0TI?si=Uv-z8XrkCZZKeCzS
 
 **Pattern:** Two Pointers → Builder & Explorer
 

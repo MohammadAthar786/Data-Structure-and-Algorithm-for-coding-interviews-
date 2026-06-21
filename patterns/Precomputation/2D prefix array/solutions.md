@@ -1,5 +1,7 @@
 ## **LeetCode 304: Range Sum Query 2D - Immutable**
 
+https://youtu.be/tk0Twx2VQy8?si=Y-pURJKUAh1cYhu1
+
 ---
 
 ## 1. Core Pattern Recognition
@@ -144,6 +146,8 @@ public:
 ```
 
 ## **LeetCode 1314: Matrix Block Sum**
+
+https://youtu.be/3hF88U-KHyY?si=Vwi8zAGLXQplMYWo
 
 ---
 

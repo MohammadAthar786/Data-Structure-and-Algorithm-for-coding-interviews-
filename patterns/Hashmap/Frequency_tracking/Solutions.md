@@ -1,5 +1,7 @@
 ## LC 242 — Valid Anagram
 
+https://youtu.be/1tmEKyRAMuY?si=wui-gCMuRd9IJBEB
+
 **Pattern:** HashMap / Frequency Count
 
 ### 1. Pattern Recognition
@@ -173,6 +175,8 @@ Anagram = same character frequency, order does not matter.
 ```
 
 ## LC 383 — Ransom Note (Practice on your own )
+
+https://youtu.be/5tkofg3RXOg?si=rX1ZxeFP2hiXrvtn
 
 **Pattern:** HashMap / Frequency Count
 
@@ -372,6 +376,8 @@ Count first, then consume.
 ```
 
 ## LC 347 — Top K Frequent Elements
+
+https://youtu.be/GLw4WbJdYLw?si=dxl5FTn-1ZNl_sG6
 
 **Pattern:** HashMap + Heap / Bucket Sort
 
@@ -714,6 +720,8 @@ HashMap gives counts, Heap/Bucket gives ranking.
 
 ## LC 692 — Top K Frequent Words
 
+https://youtu.be/zW-8-6A2gxM?si=07JAAmhqm11Njrqy
+
 **Pattern:** HashMap + Heap / Sorting
 
 Very similar to **LC 347**, but with one extra rule:
@@ -1050,6 +1058,8 @@ frequency high first, word small first.
 ```
 
 ## LC 767 — Reorganize String
+
+https://youtu.be/E3lJDtIHwg4?si=zfHkZQKLmusKCPnu
 
 **Pattern:** HashMap + Max Heap / Greedy
 

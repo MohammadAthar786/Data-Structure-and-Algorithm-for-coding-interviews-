@@ -1,4 +1,4 @@
-## **Sum of All Subarrays Sum** step by step.
+## **Sum of All Subarrays Sum**
 
 ---
 
@@ -152,6 +152,8 @@ public:
 
 ## **LeetCode 907: Sum of Subarray Minimums**
 
+https://youtu.be/HRQB7-D2bi0?si=9oXPz2N72wcdPt2K
+
 ---
 
 ## 1. Core Pattern Recognition
@@ -296,6 +298,8 @@ public:
 ```
 
 **LeetCode 2104: Sum of Subarray Ranges**
+
+https://youtu.be/gIrMptNPf5M?si=l40A2fu7_LdsBiRL
 
 ---
 

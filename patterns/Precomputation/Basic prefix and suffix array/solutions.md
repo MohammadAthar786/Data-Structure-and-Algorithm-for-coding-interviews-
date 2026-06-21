@@ -1,5 +1,7 @@
 ## **LeetCode 303: Range Sum Query - Immutable**.
 
+https://youtu.be/gAinO6Y0C5U?si=lqm_hP_7ENK1xfvO
+
 ---
 
 ## 1. Core Pattern Recognition
@@ -124,6 +126,8 @@ This is another brilliant extension of the **Precomputation / Prefix Sum** patte
 ---
 
 ## **Find Pivot Index (LC 724)**
+
+https://youtu.be/Q0Qat25D6JE?si=v3LyB3lKzicnNI3D
 
 ## 1. Core Pattern Recognition
 
@@ -362,6 +366,8 @@ to see a step-by-step trace of how the boundaries trap water across the index gr
 ## **LeetCode 238: Product of Array Except Self**.
 
 ---
+
+https://youtu.be/ku4oITayEmk?si=6onxMUhPJXO0lahx
 
 ## 1. Core Pattern Recognition
 

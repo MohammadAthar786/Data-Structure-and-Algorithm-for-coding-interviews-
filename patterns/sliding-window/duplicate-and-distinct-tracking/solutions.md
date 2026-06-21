@@ -1,5 +1,7 @@
 ## LC 3 — Longest Substring Without Repeating Characters
 
+https://youtu.be/-zSxTJkcdAo?si=NErADYxk1Nw-3luh
+
 This is your first **Frequency-State Window** problem.
 
 Now we are not just tracking sum/count.
@@ -313,6 +315,8 @@ Space: O(min(n, character_set_size))
 Each character enters the set once and leaves at most once.
 
 ## LC 340 — Longest Substring with At Most K Distinct Characters
+
+https://youtu.be/teM9ZsVRQyc?si=3JVFWjT1X9ka-Oot
 
 This is the next level after LC 3.
 

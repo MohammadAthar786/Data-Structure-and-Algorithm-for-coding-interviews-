@@ -1,5 +1,7 @@
 ## LC 438 — Find All Anagrams in a String
 
+https://youtu.be/XxeOHMwBQZU?si=tNLzlCEt3TvIlY-g
+
 This is a **Fixed-Size Frequency Window** problem.
 
 We need to find all substrings of `s` that are anagrams of `p`.
@@ -253,6 +255,8 @@ Space: O(1)
 
 ## LC 567 — Permutation in String
 
+https://youtu.be/iTwwvsyUsi4?si=6TtkSn1PYQQdYmYL
+
 This is almost the same as **LC 438**.
 
 LC 438:
@@ -485,6 +489,8 @@ Space: O(1)
 ```
 
 ## LC 76 — Minimum Window Substring
+
+https://youtu.be/3Bp3OVD1EGc?si=t59g0WKT-IXfO8or
 
 This is one of the most important **Variable-Size Frequency Matching Window** problems.
 

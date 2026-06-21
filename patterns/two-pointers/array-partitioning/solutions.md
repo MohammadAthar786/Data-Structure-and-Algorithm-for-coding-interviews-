@@ -1,5 +1,7 @@
 # Move Negative Numbers to One Side
 
+https://youtu.be/T9tzE3NeZl8?si=KrOLZ8jp4Ttau4uF
+
 This is a classic **Array Partitioning Two Pointer** problem.
 
 ---
@@ -435,6 +437,8 @@ void moveNegative(vector<int>& nums) {
 ---
 
 # LC 75. Sort Colors
+
+https://youtu.be/KDiZ3jGXxO8?si=lvQd17n9y6nAlnl1
 
 **Pattern:** Two Pointers → Array Partitioning (Dutch National Flag Algorithm)
 
@@ -1023,6 +1027,8 @@ public:
 ---
 
 # Quick Sort- pivot Last element
+
+https://youtu.be/xew1z47P6OM?si=dbi-NVTzJyohNmMf
 
 ![alt text](Quick_sort_partition-1.png)
 

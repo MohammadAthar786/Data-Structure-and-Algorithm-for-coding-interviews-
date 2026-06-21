@@ -1,5 +1,7 @@
 ## Problem: Two Sum — Two Pointers Version
 
+https://youtu.be/gsSLay-wcaw?si=8E3AzZK36J7vlBcM
+
 Usually this means:
 
 > Given a sorted array and a target, find two numbers whose sum equals target.
@@ -202,6 +204,8 @@ vector<int> twoSum(vector<int>& nums, int target) {
 Note: LeetCode **1. Two Sum** original array is not sorted, so hash map is usually used. Two-pointer version applies when array is sorted, like **167. Two Sum II - Input Array Is Sorted**.
 
 # LC 15. 3Sum
+
+https://youtu.be/_cBWWebTVpI?si=INxdWMSUPzyOSlHw
 
 ![3Sum intuition](3Sum .png)
 
@@ -426,6 +430,10 @@ Interview recall line:
 
 ---
 
+## **3 Sum closest**
+
+https://youtu.be/hGLjwiPRh0U?si=xEHZLAe3dmT17KDP
+
 ## 1. Core Pattern Recognition
 
 **3Sum Closest** fits perfectly into the **Opposite-End Pointer** (or Two-Pointer Convergence) subpattern, usually executed after sorting the array.
@@ -582,6 +590,8 @@ public:
 ```
 
 # LC 18. 4Sum
+
+https://youtu.be/eD95WRfh81c?si=E_9fddnxqC7HpCkX
 
 **Pattern:** Two Pointers → Opposite-End Pointers
 **Core idea:**
@@ -869,6 +879,8 @@ Use long long for sum because nums[i] can be large and integer overflow may happ
 
 # LC 11. Container With Most Water
 
+https://youtu.be/KVU4JNNJkVg?si=U-Qzs_KBt5mooVLQ
+
 ![alt text](container_with_most_water-1.png)
 **Pattern:** Two Pointers → Opposite-End Pointers
 
@@ -1081,6 +1093,8 @@ Move the shorter wall because the shorter wall limits the water.
 ```
 
 ## Trapping Rainwater
+
+https://youtu.be/f2QgmVxPiS4?si=kMOQiUcRwXt7eR9A
 
 Inituition and Logic:
 

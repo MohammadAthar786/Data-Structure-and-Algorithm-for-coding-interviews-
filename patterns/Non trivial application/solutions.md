@@ -30,30 +30,6 @@ The brute-force approach ignores the state of the current array entirely. It thr
 
 Therefore, to find where we can make a change, we must scan from **right to left** looking for the very first spot where the numbers _stop increasing_ as we go backward. This is the first place where a number drops.
 
-### A Concrete Example
-
-Let’s look at the sequence: `[1, 3, 5, 4, 2]`
-
-1. **Scan from right to left:** \* `2` $\rightarrow$ `4` (increasing)
-
-- `4` $\rightarrow$ `5` (increasing)
-- `5` $\rightarrow$ `3` (**Break!** `3` is less than `5`).
-- We call `3` our **pivot** (index $1$). The suffix `[5, 4, 2]` is entirely decreasing and cannot be made larger.
-
-2. **Find the replacement:** We need to replace our pivot `3` with the next largest number available in that right-hand suffix to make the overall number slightly bigger. Scanning from right to left again, the first number greater than `3` is `4`.
-
-- Swap `3` and `4`.
-- The array becomes: `[1, 4, 5, 3, 2]`
-
-3. **Minimize the tail:** The suffix `[5, 3, 2]` is still in descending order. Since we just increased our pivot position from 3 to 4, we want the rest of the number to be as _small_ as possible. The smallest way to write a sequence is in **ascending order**.
-
-- To turn a descending sequence into an ascending one, we don't need to sort it; we just **reverse** it!
-- Reversing `[5, 3, 2]` gives `[2, 3, 5]`.
-
-- Final Answer: `[1, 4, 2, 3, 5]`
-
-## ![alt text](<Next permutation-2.png>)
-
 ## 4. Conceptual Algorithm (No Code)
 
 Here is how the variables and pointers move over the structure:

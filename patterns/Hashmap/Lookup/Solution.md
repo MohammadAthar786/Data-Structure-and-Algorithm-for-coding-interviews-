@@ -1,5 +1,7 @@
 # LC 217 contains Duplicate ( Easy )
 
+https://youtu.be/0LIctkgJ2hQ?si=3whVavHzp3jnP5va
+
 **Problem**: Given an array of integers, determine if any value appears at least twice. Return true if so, false if every element is distinct.
 
 **Pattern**: "Has duplicate / has seen before" → think **hash set**. Whenever a problem asks "does X repeat" or "have I seen this before," a set giving O(1) lookup is the trigger.
@@ -45,9 +47,13 @@ public:
 };
 ```
 
+## Follow up LC 219
+
 # LC 128
 
 ## LC 128 — Longest Consecutive Sequence
+
+https://youtu.be/oO5uLE7EUlM?si=BYx6EfnV76JKV3Ai
 
 **Pattern:** HashMap / HashSet
 

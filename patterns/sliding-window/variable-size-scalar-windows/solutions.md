@@ -1,5 +1,7 @@
 ## LC 485 — Max Consecutive Ones
 
+https://youtu.be/dizdXJ4Gtnk?si=9McZiKA5nK9XcsaP
+
 ### Pattern
 
 This is a **Variable-Size Scalar Window** problem, but actually it is the simplest version.
@@ -89,6 +91,8 @@ Space: O(1)
 Each element is checked once.
 
 ## LC 487 — Max Consecutive Ones II
+
+https://youtu.be/3E4JBHSLpYk?si=wWw4T9gRCnkXockV
 
 In this problem, you are allowed to flip **at most one `0`** into `1`.
 
@@ -221,6 +225,8 @@ Space: O(1)
 Each pointer moves forward only once.
 
 ## LC 1493 — Longest Subarray of 1s After Deleting One Element
+
+https://youtu.be/SQ8tY9nxeZU?si=_023bqEDtJkkwU1r
 
 This is very close to **LC 487**, but with one important difference.
 
@@ -404,6 +410,8 @@ Space: O(1)
 ```
 
 ## LC 209 — Minimum Size Subarray Sum
+
+https://youtu.be/D2MbogiFXWU?si=a_HlPm9NVIXVXJJL
 
 Problem idea:
 
@@ -627,245 +635,3 @@ Space: O(1)
 ```
 
 Both `left` and `right` move forward only.
-
-## LC 1423 — Maximum Points You Can Obtain from Cards
-
-You can pick exactly `k` cards from either:
-
-```text
-left end
-or
-right end
-```
-
-At first it looks like recursion/backtracking, but there is a clean sliding window trick.
-
----
-
-## Core Pattern
-
-This is a **fixed-size sliding window variant**.
-
-Important clue:
-
-```text
-Pick k cards from either end
-```
-
-That means after picking `k` cards, the cards you did **not pick** must be one continuous middle subarray.
-
-So instead of maximizing picked cards:
-
-```text
-maximize picked sum
-```
-
-we can think:
-
-```text
-minimize the sum of the remaining middle window
-```
-
-Total cards = `n`
-Picked cards = `k`
-Remaining cards = `n - k`
-
-So answer:
-
-```text
-totalSum - minimum sum of subarray of size n - k
-```
-
----
-
-## Naive Approach
-
-Try all combinations of taking from left and right.
-
-Example:
-
-```text
-cardPoints = [1, 2, 3, 4, 5, 6, 1]
-k = 3
-```
-
-Possible choices:
-
-```text
-3 left, 0 right -> 1 + 2 + 3 = 6
-2 left, 1 right -> 1 + 2 + 1 = 4
-1 left, 2 right -> 1 + 1 + 6 = 8
-0 left, 3 right -> 1 + 6 + 5 = 12
-```
-
-Answer:
-
-```text
-12
-```
-
-This is already `O(k)`, but the deeper sliding-window view is:
-
-```text
-Which middle subarray of size n-k should I leave behind?
-```
-
----
-
-## Intuition Shift
-
-Original array:
-
-```text
-[1, 2, 3, 4, 5, 6, 1]
-```
-
-If `k = 3`, then we pick 3 cards.
-
-So remaining cards length:
-
-```text
-n - k = 7 - 3 = 4
-```
-
-If we leave behind this middle window:
-
-```text
-[1, 2, 3, 4]
-```
-
-Picked cards:
-
-```text
-[5, 6, 1]
-```
-
-If we leave behind:
-
-```text
-[2, 3, 4, 5]
-```
-
-Picked cards:
-
-```text
-[1] + [6, 1]
-```
-
-If we leave behind:
-
-```text
-[3, 4, 5, 6]
-```
-
-Picked cards:
-
-```text
-[1, 2] + [1]
-```
-
-If we leave behind:
-
-```text
-[4, 5, 6, 1]
-```
-
-Picked cards:
-
-```text
-[1, 2, 3]
-```
-
-To maximize picked score, leave the minimum-sum window of length `n-k`.
-
----
-
-## Conceptual Algorithm
-
-```text
-1. Find total sum of all cards.
-2. Window size = n - k.
-3. Find minimum sum of any contiguous subarray of this size.
-4. Answer = total sum - minimum window sum.
-```
-
-Sliding part:
-
-```text
-currentSum = sum of first window of size n-k
-minWindowSum = currentSum
-
-for each next index:
-    add incoming element
-    remove outgoing element
-    update minWindowSum
-```
-
----
-
-## Human C++ Code
-
-```cpp
-class Solution {
-public:
-    int maxScore(vector<int>& cardPoints, int k) {
-        int n = cardPoints.size();
-
-        int totalSum = 0;
-        for (int x : cardPoints) {
-            totalSum += x;
-        }
-
-        int windowSize = n - k;
-
-        if (windowSize == 0) {
-            return totalSum;
-        }
-
-        int windowSum = 0;
-
-        for (int i = 0; i < windowSize; i++) {
-            windowSum += cardPoints[i];
-        }
-
-        int minWindowSum = windowSum;
-
-        for (int right = windowSize; right < n; right++) {
-            windowSum += cardPoints[right];
-            windowSum -= cardPoints[right - windowSize];
-
-            minWindowSum = min(minWindowSum, windowSum);
-        }
-
-        return totalSum - minWindowSum;
-    }
-};
-```
-
----
-
-## Alternative Human Intuition
-
-You can also start by taking all `k` cards from the left.
-
-Then one by one, replace a left card with a right card.
-
-```text
-left sum of first k cards
-then move:
-remove from left side
-add from right side
-```
-
-That also works.
-
-But the **minimum middle window** approach is more pattern-friendly.
-
----
-
-## Complexity
-
-```text
-Time: O(n)
-Space: O(1)
-```

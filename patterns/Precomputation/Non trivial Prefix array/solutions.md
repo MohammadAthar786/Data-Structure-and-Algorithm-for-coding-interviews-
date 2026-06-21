@@ -1,5 +1,8 @@
 ---
 
+https://youtu.be/CboKBIpo640?si=CmOiQIGsWOGyWB4k
+
+
 ## My Real Intuition for Next Permutation
 
 Think of permutation like a number:

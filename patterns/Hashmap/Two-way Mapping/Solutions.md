@@ -1,5 +1,6 @@
-
 ## LC 205 — Isomorphic Strings
+
+https://youtu.be/2ISNCDJEgqQ?si=svErjF5KVZRpF7sD
 
 **Pattern:** HashMap / Two-way Mapping
 
@@ -229,6 +230,8 @@ Use two maps to enforce one-to-one mapping.
 ```
 
 ## LC 290 — Word Pattern
+
+https://youtu.be/n0cn5tJwkaE?si=0G3JlVOgC5be3OHN
 
 **Pattern:** HashMap / Two-way Mapping
 

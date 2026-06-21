@@ -1,5 +1,7 @@
 ## **LeetCode 370: Range Addition**
 
+https://youtu.be/M0AU0WyZKuQ?si=VtafROiRnnWWZLZT
+
 ---
 
 ## 1. Core Pattern Recognition
@@ -138,6 +140,8 @@ the exact sister problem to LC 370!
 
 ## **LeetCode 1109: Corporate Flight Bookings**
 
+https://youtu.be/17sXcR5zGSs?si=MEmroGkYXC_EdvdP
+
 --the exact sister problem to LC 370!
 
 is practically identical in its underlying math, but it wraps the concept in a real-world scenario (flight bookings).
@@ -218,6 +222,8 @@ public:
 - **Space Complexity:** $O(1)$ auxiliary space if we consider the returned array as part of the output requirements.
 
 ## **LeetCode 1094: Car Pooling**
+
+https://youtu.be/E0g0QTwYK6g?si=OhdQr024F17VGPvk
 
 ---
 
@@ -304,4 +310,4 @@ public:
 
 ---
 
-For a deeper look into handling this using an ordered map (useful for larger coordinate ranges) or visualizing how events sort when multiple pickups and dropoffs hit the same index, you can watch this thorough video walk-through on [Car Pooling by codestorywithMIK](https://www.youtube.com/watch?v=E0g0QTwYK6g).
+For a deeper look into handling this using an ordered map (useful for larger coordinate ranges) or visualizing how events sort when multiple pickups and dropoffs hit the same index, you can watch this thorough video walk-through on

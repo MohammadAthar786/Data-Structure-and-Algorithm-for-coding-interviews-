@@ -126,7 +126,7 @@ Example:
 nums = [1, 1, 2, 3, 3, 4, 4]
 ```
 
-| Step | left | right | mid | Check | Movement |
+| Step | left | right | mid(Condition check: (mid%2==0))-True -don't need force ,Condition turns out to be False force mid to become even by mid-- | Check | Movement |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | 0 | 6 | 3 -> 2 | `nums[2] != nums[3]` | `right = 2` |
 | 2 | 0 | 2 | 1 -> 0 | `nums[0] == nums[1]` | `left = 2` |

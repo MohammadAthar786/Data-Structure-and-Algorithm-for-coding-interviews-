@@ -1,5 +1,7 @@
 ## LC 380 — Insert Delete GetRandom O(1)
 
+https://youtu.be/3yTnLrNdJGo?si=z2hbV7MSK7f88Id0
+
 **Pattern:** HashMap + Dynamic Array
 
 Goal:
@@ -220,6 +222,8 @@ Delete by swap-with-last.
 ```
 
 ## LC 146 — LRU Cache
+
+https://youtu.be/81h8O-0U5oo?si=-vI0Dlvs6wlTny3I
 
 **Pattern:** HashMap + Doubly Linked List
 
@@ -492,6 +496,8 @@ Move every used key to front, remove from back.
 ```
 
 ## LC 460 — LFU Cache
+
+https://youtu.be/-Vch0tHAsOM?si=AgOa00XTWvArSggU
 
 **Pattern:** HashMap + Frequency Buckets + Doubly Linked List
 

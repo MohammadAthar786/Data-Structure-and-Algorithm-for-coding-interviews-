@@ -1,4 +1,6 @@
-## **LeetCode 560: Subarray Sum Equals K** step by step to build that
+## **LeetCode 560: Subarray Sum Equals K**
+
+https://youtu.be/-SWrz90jCUM?si=AdkSQsMAzq_lUEJ5
 
 ---
 
@@ -139,9 +141,9 @@ public:
 
 ```
 
-## **LeetCode 560: Subarray Sum Equals K** step by step to build that
-
 ---
+
+## **LeetCode 560: Subarray Sum Equals K** step by step to build that
 
 ## 1. Core Pattern Recognition
 
@@ -281,6 +283,8 @@ public:
 ```
 
 ## **LeetCode 523: Continuous Subarray Sum**.
+
+https://youtu.be/wmn3c1mP0pY?si=PHG9y9EU9WDTetLF
 
 ---
 
@@ -425,13 +429,11 @@ public:
 
 ```
 
-Look at how beautifully this extends your pattern! We went from storing **exact prefix values** (LC 560, 930) to storing **prefix remainders mapped to index locations**.
-
-Let’s break down **LeetCode 974: Subarray Sums Divisible by K**.
-
-This problem brings everything you learned from LC 560 (Frequency Mapping) and LC 523 (Modulo Arithmetic) together into one final, beautiful combination.
-
 ---
+
+## **LeetCode 974: Subarray Sums Divisible by K**.
+
+https://youtu.be/7Xeorb721LQ?si=yy5D4DgWfZl3AAby
 
 ## 1. Core Pattern Recognition
 
@@ -553,11 +555,3 @@ public:
 };
 
 ```
-
-Look at what we've achieved! we have evolved our toolkit across the **Prefix Sum + Hash Map** landscape:
-
-1. **LC 560 / 930:** Stored exact raw values/targets.
-2. **LC 523:** Stored remainders to look for multiples, mapping them to _indices_ for length validation.
-3. **LC 974:** Stored remainders to look for multiples, mapping them to _frequencies_ to accumulate total counts.
-
-we have completely mastered this pattern.

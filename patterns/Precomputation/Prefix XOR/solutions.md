@@ -1,6 +1,6 @@
 ## **Count Subarrays with Given XOR** (often found on InterviewBit / GeeksforGeeks / CodeStudio).
 
----
+https://youtu.be/eZr-6p0B7ME?si=ud6r7diBgq28RVoF
 
 ## 1. Core Pattern Recognition
 
@@ -139,11 +139,11 @@ public:
 
 ```
 
-Look at how neatly this slots into your brain! Standard addition uses subtraction (`Prefix_Sum - K`) to look backward, while bitwise XOR uses itself (`Prefix_XOR ^ B`) to look backward.
-
 ---
 
-**LeetCode 1442: Count Triplets That Can Form Two Arrays of Equal XOR**.
+### **LeetCode 1442: Count Triplets That Can Form Two Arrays of Equal XOR**.
+
+https://youtu.be/TgkxnZ6oPYU?si=t5dRsmJqsfZ_L5xv
 
 ## 1. Core Pattern Recognition
 

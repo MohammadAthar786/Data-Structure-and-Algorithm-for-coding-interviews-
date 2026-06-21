@@ -1,5 +1,7 @@
 # Happy Number
 
+https://youtu.be/LkD0D0Xy-ro?si=yjlOJ6vnr3vVuMPE
+
 ![alt text](Happy_number-1.png)
 
 ```cpp
@@ -40,6 +42,8 @@ public:
 ```
 
 # LC 287. Find the Duplicate Number
+
+https://youtu.be/49HrEGt6D2s?si=6N7SzaojEpTl8t63
 
 **Pattern:** Floyd Cycle Detection (Fast & Slow Pointers)
 

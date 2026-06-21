@@ -1,6 +1,9 @@
 ---
 # **Best Time to Buy and Sell Stock (LC 121)**
 
+https://youtu.be/E2-heUEnZKU?si=lCnOUo4pyilgiOUD
+
+
 ## 1. Core Pattern Recognition
 
 In this problem, you want to maximize your profit by choosing a single day to buy a stock and a different day in the future to sell it.

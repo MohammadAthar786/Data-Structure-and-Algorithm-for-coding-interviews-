@@ -40,6 +40,8 @@ public:
 
 # LC 680. Valid Palindrome II
 
+https://youtu.be/wX3-411uJH0?si=6MD4N-eGcvakWl0e
+
 **Pattern:** String-Based Two Pointers
 
 Core idea:

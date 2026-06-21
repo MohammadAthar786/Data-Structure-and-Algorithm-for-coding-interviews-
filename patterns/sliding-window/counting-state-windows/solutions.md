@@ -1,5 +1,7 @@
 ## LC 930 — Binary Subarrays With Sum
 
+https://youtu.be/5Quv9nnZs34?si=sCLyf5lUARJC3KC8
+
 Now we enter **Counting-State Windows**.
 
 Problem:
@@ -276,6 +278,8 @@ O(2n) = O(n)
 ```
 
 ## LC 1248 — Count Number of Nice Subarrays
+
+https://youtu.be/JpXlsCAD1kg?si=lKj4zmTDDARavudw
 
 A **nice subarray** means:
 
@@ -557,6 +561,8 @@ O(2n) = O(n)
 ```
 
 ## LC 992 — Subarrays with K Different Integers
+
+https://youtu.be/uJJSGxfzix8?si=fOlFDU8ByZGpgdY8
 
 This is the same counting trick as LC 930 and LC 1248, but now the state is a **frequency map**.
 

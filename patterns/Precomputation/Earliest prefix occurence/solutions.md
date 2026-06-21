@@ -1,4 +1,4 @@
-## **LeetCode 325: Maximum Size Subarray Sum Equals k** step by step.
+## **LeetCode 325: Maximum Size Subarray Sum Equals k**
 
 ---
 
@@ -144,11 +144,11 @@ public:
 
 ```
 
+---
+
 ## **LeetCode 525: Contiguous Array**.
 
-This problem is a magnificent application of the **Earliest Prefix Occurrence** pattern. At first glance, it doesn't look like a prefix sum problem because there's no mention of a "target sum $k$". However, with a brilliant mathematical transformation, we can turn it into an exact replica of LC 325.
-
----
+https://youtu.be/AcSWGXBu-Xo?si=FoLGdv4wtB4U4twc
 
 ## 1. Core Pattern Recognition
 
@@ -297,9 +297,9 @@ public:
 
 ```
 
-## **LeetCode 1124: Longest Well-Performing Interval**.
-
 ---
+
+## **LeetCode 1124: Longest Well-Performing Interval**.
 
 ## 1. Core Pattern Recognition
 

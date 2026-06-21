@@ -1,5 +1,7 @@
 ## LC 239 — Sliding Window Maximum
 
+https://youtu.be/29OnjVQ-fk4?si=oxseeUVtGqemT7oM
+
 This is your first **Monotonic Queue / Deque** sliding window problem.
 
 Problem:
@@ -267,6 +269,8 @@ Space: O(k)
 Each index enters deque once and leaves once.
 
 ## LC 1438 — Longest Continuous Subarray With Absolute Diff ≤ Limit
+
+https://youtu.be/xZDbcGB2PQs?si=NVD4gpYI3kWZ460O
 
 This is like LC 239, but now we need both:
 
